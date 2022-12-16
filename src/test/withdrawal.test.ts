@@ -20,16 +20,17 @@ describe('Withdrawal', () => {
     Bank.create('Biba');
     Bank.create('Boba');
     Bank.deposit(1001, 500);
-    Bank.deposit(1001, 1500);
-    Bank.deposit(1001, 11_500);
+    Bank.deposit(1001, 1_000);
+    Bank.deposit(1001, 10_000);
   });
+
   it.each([
     { id: 1001, amount: 500, output: 'Minimum withdrawal amount is 1000' },
     { id: 1001, amount: 20_000, output: 'Insufficient balance' },
-    // { id: 1001, amount: 100, output: 'Minimum deposit amount is 500' },
-    // { id: 1001, amount: 50_000, output: 'Maximum deposit amount is 50000' },
-    // { id: 1001, amount: 10_000, output: 11_500 },
-    // { id: 1001, amount: 10_000, output: 'Only 3 deposits are allowed in a day' },
+    { id: 1001, amount: 1_000, output: 10_500 },
+    { id: 1001, amount: 1_900, output: 8_600 },
+    { id: 1001, amount: 1_000, output: 7_600 },
+    { id: 1001, amount: 5_000, output: 'Only 3 withdrawals are allowed in a day' },
 
   ])('After making withdraw (-$amount\$) from holder (No."$id") output should be - $output', ({ id, amount, output }) => {
     expect(Bank.withdraw(id, amount)).toBe(output);
