@@ -12,8 +12,19 @@ const COMMAND_EXECUTOR = {
     ALL_HOLDERS.set(id, holder);
 
     return id;
+  },
+  [InputCommand.DEPOSIT](id: number, amount: number) {
+    const holder = ALL_HOLDERS.get(id);
+
+    if (!holder) {
+      throw new Error(`There aren't any holders with such id (${id})!`);
+    }
+
+    holder.deposit(amount);
   }
 }
+
+
 export class Bank {
   public static execute(input: InputCommand) {
 
