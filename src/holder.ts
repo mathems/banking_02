@@ -18,26 +18,27 @@ export class Holder {
 
   }
 
-  public deposit(amount: number) {
+  public checkIsDepositPossible(amount: number) {
     if (amount > MAX_DEPOSIT_PER_TRANSACTION) {
-      throw new Error(`The max amount of balance for account is ${MAX_ACCOUNT_BALANCE}!`);
-      throw new Error(ErrorMessage.BIG_DEPOSIT);
+      return ErrorMessage.BIG_DEPOSIT;
     }
+
     if (amount < MIN_DEPOSIT_PER_TRANSACTION) {
-      throw new Error(ErrorMessage.SMALL_DEPOSIT);
+      return ErrorMessage.SMALL_DEPOSIT;
     }
 
     const newBalance = this.balance + amount;
 
     if (newBalance > MAX_ACCOUNT_BALANCE) {
-      throw new Error(ErrorMessage.BIG_ACCOUNT_BALANCE);
+      return ErrorMessage.BIG_ACCOUNT_BALANCE;
     }
-
-    this.balance = newBalance;
 
     return newBalance;
   }
 
+  public deposit(amount: number) {
+    return this.balance += amount;
+  }
   public withdraw(amount: number) {
     if (amount > MAX_WITHDRAWAL_PER_TRANSACTION) {
       throw new Error(ErrorMessage.BIG_WITHDRAW);
