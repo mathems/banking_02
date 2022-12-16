@@ -5,15 +5,17 @@ import { InputCommand } from "./types/input_command.enum";
 import { generateId } from "./utils/generate-id.util";
 
 
-const COMMAND_EXECUTOR = {
-  [InputCommand.CREATE](fullName: string) {
+export class Bank {
+  public static [InputCommand.CREATE](fullName: string) {
     const id = generateId();
     const holder = Holder.create(fullName, id);
-    ALL_HOLDERS.set(id, holder);
-    return id;
-  },
 
-  [InputCommand.DEPOSIT]: (id: number, amount: number) => {
+    ALL_HOLDERS.set(id, holder);
+
+    return id;
+  }
+
+  public static [InputCommand.DEPOSIT](id: number, amount: number) {
     const holder = getHolderById(id);
     const checkResult = holder.checkIsDepositPossible(amount);
 
@@ -22,9 +24,9 @@ const COMMAND_EXECUTOR = {
     }
 
     return holder.deposit(amount, 'I should to call check* method before this operation');
-  },
+  }
 
-  [InputCommand.WITHDRAW]: (id: number, amount: number) => {
+  [InputCommand.WITHDRAW](id: number, amount: number) {
     const holder = getHolderById(id);
     const checkResult = holder.checkIsWithdrawPossible(amount);
 
@@ -33,34 +35,23 @@ const COMMAND_EXECUTOR = {
     }
 
     return holder.withdraw(amount, 'I should to call check* method before this operation');
-  },
+  };
 
-  [InputCommand.BALANCE]: (id: number) => getHolderById(id).getBalance(),
-} as const;
+  [InputCommand.BALANCE] = (id: number) => getHolderById(id).getBalance();
 
+  [InputCommand.TRANSFER](sourceAccountId: number, targetAccountId: number, amount: number) {
+    const sender = getHolderById(sourceAccountId);
+    const receiver = getHolderById(targetAccountId);
+    const senderCheckResult = sender.checkIsWithdrawPossible(amount);
+    const receiverCheckResult = receiver.checkIsDepositPossible(amount);
 
-function transfer(sourceAccountId: number, targetAccountId: number, amount: number) {
-  const sender = getHolderById(sourceAccountId);
-  const receiver = getHolderById(targetAccountId);
-  const senderCheckResult = sender.checkIsWithdrawPossible(amount);
-  const receiverCheckResult = receiver.checkIsDepositPossible(amount);
-
-  if ([senderCheckResult, receiverCheckResult].some((checkResult) => Number.isNaN(checkResult))) {
-    return 'failure';
-  }
-
-  sender.withdraw(amount, 'I should to call check* method before this operation');
-  receiver.deposit(amount, 'I should to call check* method before this operation');
-
-  return 'successful';
-}
-
-export class Bank {
-  public static execute(input: InputCommand) {
-    if (input === InputCommand.TRANSFER) {
-      return transfer;
-    } else {
-      COMMAND_EXECUTOR[input];
+    if ([senderCheckResult, receiverCheckResult].some((checkResult) => Number.isNaN(checkResult))) {
+      return 'failure';
     }
-  }
+
+    sender.withdraw(amount, 'I should to call check* method before this operation');
+    receiver.deposit(amount, 'I should to call check* method before this operation');
+
+    return 'successful';
+  };
 }
