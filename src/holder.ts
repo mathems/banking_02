@@ -1,4 +1,4 @@
-import { MAX_ACCOUNT_BALANCE, MAX_DEPOSIT_PER_TRANSACTION, MIN_ACCOUNT_BALANCE, MIN_DEPOSIT_PER_TRANSACTION } from "./types/constants";
+import { MAX_ACCOUNT_BALANCE, MAX_DEPOSIT_PER_TRANSACTION, MAX_WITHDRAWAL_PER_TRANSACTION, MIN_ACCOUNT_BALANCE, MIN_DEPOSIT_PER_TRANSACTION, MIN_WITHDRAWAL_PER_TRANSACTION } from "./types/constants";
 import { ErrorMessage } from "./types/error-message.enum";
 
 
@@ -39,11 +39,22 @@ export class Holder {
   }
 
   public withdraw(amount: number) {
-    if (MIN_ACCOUNT_BALANCE > (this.balance - amount)) {
-      throw new Error(`The min amount of balance for account is ${MIN_ACCOUNT_BALANCE}!`)
+    if (amount > MAX_WITHDRAWAL_PER_TRANSACTION) {
+      throw new Error(ErrorMessage.BIG_WITHDRAW);
     }
 
-    return this.balance -= amount
+    if (amount < MIN_WITHDRAWAL_PER_TRANSACTION) {
+      throw new Error(ErrorMessage.SMALL_WITHDRAW);
+    }
+    const newBalance = this.balance - amount;
+
+    if (newBalance > MIN_ACCOUNT_BALANCE) {
+      throw new Error(ErrorMessage.SMALL_ACCOUNT_BALANCE);
+    }
+
+    this.balance = newBalance;
+
+    return newBalance;
   }
 
   public getBalance() {
