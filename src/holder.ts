@@ -1,3 +1,4 @@
+import { MAX_ACCOUNT_BALANCE } from "./types/constants";
 import { generateId } from "./utils/generate-id.util";
 
 
@@ -19,6 +20,14 @@ export class Holder {
 
     return holder
 
+  }
+
+  public deposit(amount: number) {
+    if (MAX_ACCOUNT_BALANCE > (amount + this.balance)) {
+      throw new Error(`The max amount of balance of account is ${MAX_ACCOUNT_BALANCE}!`)
+    }
+
+    return this.balance += amount
   }
 
   public getFullName() {
