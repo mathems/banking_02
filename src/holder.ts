@@ -17,7 +17,7 @@ export class Holder {
     return new Holder(fullName, id);
   }
   public checkIsDepositPossible(amount: number) {
-    if (amount > MAX_DEPOSIT_PER_TRANSACTION) {
+    if (amount >= MAX_DEPOSIT_PER_TRANSACTION) {
       return ErrorMessage.BIG_DEPOSIT;
     }
     if (amount < MIN_DEPOSIT_PER_TRANSACTION) {
