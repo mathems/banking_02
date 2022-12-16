@@ -39,25 +39,32 @@ export class Holder {
   public deposit(amount: number) {
     return this.balance += amount;
   }
-  public withdraw(amount: number) {
+
+
+  public checkIsWithdrawPossible(amount: number): ErrorMessage | number {
     if (amount > MAX_WITHDRAWAL_PER_TRANSACTION) {
-      throw new Error(ErrorMessage.BIG_WITHDRAW);
+      return ErrorMessage.BIG_WITHDRAW;
     }
 
     if (amount < MIN_WITHDRAWAL_PER_TRANSACTION) {
-      throw new Error(ErrorMessage.SMALL_WITHDRAW);
+      return ErrorMessage.SMALL_WITHDRAW;
     }
+
     const newBalance = this.balance - amount;
 
     if (newBalance > MIN_ACCOUNT_BALANCE) {
-      throw new Error(ErrorMessage.SMALL_ACCOUNT_BALANCE);
+      return ErrorMessage.SMALL_ACCOUNT_BALANCE;
     }
-
-    this.balance = newBalance;
 
     return newBalance;
   }
 
+  public withdraw(amount: number) {
+    return this.balance -= amount;
+  }
+
+
+  
   public getBalance() {
     return this.balance;
   }
