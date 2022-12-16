@@ -27,13 +27,10 @@ export class Holder {
     if (newBalance > MAX_ACCOUNT_BALANCE) {
       return ErrorMessage.BIG_ACCOUNT_BALANCE;
     }
-
     const newCountOfDepositsToday = this.todayDepositsCount + 1;
-
     if (newCountOfDepositsToday > MAX_DEPOSIT_COUNT_IN_A_DAY) {
       return ErrorMessage.MANY_DEPOSITS_FOR_DAY;
     }
-
     return null;
   }
   public deposit(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
@@ -47,18 +44,17 @@ export class Holder {
     if (amount < MIN_WITHDRAWAL_PER_TRANSACTION) {
       return ErrorMessage.SMALL_WITHDRAW;
     }
+
     const newBalance = this.balance - amount;
-    if (newBalance > MIN_ACCOUNT_BALANCE) {
-      return ErrorMessage.SMALL_ACCOUNT_BALANCE;
+
+    if (newBalance < MIN_ACCOUNT_BALANCE) {
+      return ErrorMessage.INSUFFICIENT_BALANCE;
     }
 
     const newCountOfWithdrawsToday = this.todayWithdrawsCount + 1;
-
-
     if (newCountOfWithdrawsToday > MAX_WITHDRAWAL_COUNT_IN_A_DAY) {
       return ErrorMessage.MANY_WITHDRAWS_FOR_DAY;
     }
-
     return null;
   }
   public withdraw(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
