@@ -1,4 +1,4 @@
-import { ALL_HOLDERS } from "./all-holders";
+import { ALL_HOLDERS, getHolderById } from "./all-holders";
 import { Holder } from "./holder";
 import { InputCommand } from "./types/input_command.enum";
 import { generateId } from "./utils/generate-id.util";
@@ -13,15 +13,7 @@ const COMMAND_EXECUTOR = {
 
     return id;
   },
-  [InputCommand.DEPOSIT](id: number, amount: number) {
-    const holder = ALL_HOLDERS.get(id);
-
-    if (!holder) {
-      throw new Error(`There aren't any holders with such id (${id})!`);
-    }
-
-    holder.deposit(amount);
-  }
+  [InputCommand.DEPOSIT]: (id: number, amount: number) => getHolderById(id).deposit(amount),
 }
 
 
