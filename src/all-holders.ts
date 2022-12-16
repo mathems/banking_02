@@ -12,3 +12,13 @@ export function getHolderById(id: number) {
 
   return holder;
 }
+
+export function sunrise() {
+  const holdersIterator = ALL_HOLDERS.values();
+
+  let current = holdersIterator.next();
+
+  while (!current.done) {
+    current.value.resetCounters();
+  }
+}
