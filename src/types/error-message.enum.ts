@@ -1,7 +1,7 @@
 export enum ErrorMessage {
   BIG_ACCOUNT_BALANCE = 'Account balance cannot exceed $100,000',
   SMALL_ACCOUNT_BALANCE = 'Account balance cannot be less than $0',
-  SMALL_DEPOSIT = 'The minimum deposit amount is $500 per transaction',
+  SMALL_DEPOSIT = 'Minimum deposit amount is 500',
   BIG_DEPOSIT = 'The maximum deposit amount is $50,000 per transaction',
   SMALL_WITHDRAW = 'The minimum withdrawal amount is $1,000 per transaction',
   BIG_WITHDRAW = 'The maximum withdrawal amount is $25,000 per transaction',
