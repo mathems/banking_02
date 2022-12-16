@@ -4,6 +4,7 @@ import { ErrorMessage } from "./types/error-message.enum";
 type UNDER_MY_RESPONSIBILITY = 'I should to call check* method before this operation';
 
 export class Holder {
+  private todayOperationsCount = 0;
   private balance = 0;
   private constructor(
     private fullName: string,
