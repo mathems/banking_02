@@ -1,3 +1,5 @@
+import { generateId } from "./utils/generate-id.util";
+
 export class Holder {
   private constructor(
     private fullName: string,
@@ -6,7 +8,7 @@ export class Holder {
 
 
   public static create(fullName: string) {
-    // return new Holder(fullName) // TODO generate id
+    return new Holder(fullName, generateId())
   }
 
   public getFullName() {
