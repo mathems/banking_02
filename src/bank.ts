@@ -18,9 +18,10 @@ const COMMAND_EXECUTOR = {
 function transfer(sourceAccountId: number, targetAccountId: number, amount: number) {
   const sender = getHolderById(sourceAccountId);
   const receiver = getHolderById(targetAccountId);
+}
 
-  export class Bank {
-    public static execute(input: InputCommand) {
+export class Bank {
+  public static execute(input: InputCommand) {
 
-    }
   }
+}
