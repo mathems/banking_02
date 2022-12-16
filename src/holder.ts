@@ -1,17 +1,14 @@
 import { MAX_ACCOUNT_BALANCE, MAX_DEPOSIT_COUNT_IN_A_DAY, MAX_DEPOSIT_PER_TRANSACTION, MAX_WITHDRAWAL_COUNT_IN_A_DAY, MAX_WITHDRAWAL_PER_TRANSACTION, MIN_ACCOUNT_BALANCE, MIN_DEPOSIT_PER_TRANSACTION, MIN_WITHDRAWAL_PER_TRANSACTION } from "./types/constants";
 import { ErrorMessage } from "./types/error-message.enum";
-
 type UNDER_MY_RESPONSIBILITY = 'I should to call check* method before this operation';
 export class Holder {
   private todayDepositsCount = 0;
   private todayWithdrawsCount = 0;
   private balance = 0;
-
   public resetCounters() {
     this.todayDepositsCount = 0;
     this.todayWithdrawsCount = 0;
   }
-
   private constructor(
     private fullName: string,
     private id: number,
@@ -33,13 +30,16 @@ export class Holder {
     if (this.todayDepositsCount > MAX_DEPOSIT_COUNT_IN_A_DAY) {
       return ErrorMessage.MANY_DEPOSITS_FOR_DAY;
     }
-    return newBalance;
+
+    return null;
   }
+
   public deposit(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
     ++this.todayDepositsCount;
     return this.balance += amount;
   }
-  public checkIsWithdrawPossible(amount: number): ErrorMessage | number {
+
+  public checkIsWithdrawPossible(amount: number) {
     if (amount > MAX_WITHDRAWAL_PER_TRANSACTION) {
       return ErrorMessage.BIG_WITHDRAW;
     }
@@ -53,8 +53,10 @@ export class Holder {
     if (this.todayWithdrawsCount > MAX_WITHDRAWAL_COUNT_IN_A_DAY) {
       return ErrorMessage.MANY_WITHDRAWS_FOR_DAY;
     }
-    return newBalance;
+
+    return null;
   }
+
   public withdraw(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
     ++this.todayWithdrawsCount;
     return this.balance -= amount;
