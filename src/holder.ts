@@ -33,7 +33,9 @@ export class Holder {
       throw new Error(ErrorMessage.BIG_ACCOUNT_BALANCE);
     }
 
-    return this.balance = newBalance;
+    this.balance = newBalance;
+
+    return newBalance;
   }
 
   public withdraw(amount: number) {
