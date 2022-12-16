@@ -37,7 +37,7 @@ export class Holder {
     return newBalance;
   }
 
-  public deposit(amount: number, message: UNDER_MY_RESPONSIBILITY) {
+  public deposit(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
     return this.balance += amount;
   }
 
@@ -60,7 +60,7 @@ export class Holder {
     return newBalance;
   }
 
-  public withdraw(amount: number, message: UNDER_MY_RESPONSIBILITY) {
+  public withdraw(amount: number, _underMyResponsibility: UNDER_MY_RESPONSIBILITY) {
     return this.balance -= amount;
   }
 
