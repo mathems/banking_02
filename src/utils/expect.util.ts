@@ -1,5 +1,4 @@
 export function expectToBe(actual: any, expected: any) {
-  return actual === expected;
   const result = actual === expected;
 
   if (result) {
