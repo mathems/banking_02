@@ -1,11 +1,9 @@
 
-/** 
-Account creation
-● Input: Create “Steve Rogers”
-Output: 1001
-● Input: Create “Diana Prince”
-Output: 1002
-*/
+// Account creation
+// ● Input: Create “Steve Rogers”
+// Output: 1001
+// ● Input: Create “Diana Prince”
+// Output: 1002
 
 import { Bank } from "../bank";
 
