@@ -1,4 +1,5 @@
-import { MAX_ACCOUNT_BALANCE, MIN_ACCOUNT_BALANCE } from "./types/constants";
+import { MAX_ACCOUNT_BALANCE, MAX_DEPOSIT_PER_TRANSACTION, MIN_ACCOUNT_BALANCE, MIN_DEPOSIT_PER_TRANSACTION } from "./types/constants";
+import { ErrorMessage } from "./types/error-message.enum";
 
 
 
@@ -18,11 +19,21 @@ export class Holder {
   }
 
   public deposit(amount: number) {
-    if (MAX_ACCOUNT_BALANCE > (amount + this.balance)) {
-      throw new Error(`The max amount of balance for account is ${MAX_ACCOUNT_BALANCE}!`)
+    if (amount > MAX_DEPOSIT_PER_TRANSACTION) {
+      throw new Error(`The max amount of balance for account is ${MAX_ACCOUNT_BALANCE}!`);
+      throw new Error(ErrorMessage.BIG_DEPOSIT);
+    }
+    if (amount < MIN_DEPOSIT_PER_TRANSACTION) {
+      throw new Error(ErrorMessage.SMALL_DEPOSIT);
     }
 
-    return this.balance += amount
+    const newBalance = this.balance + amount;
+
+    if (newBalance > MAX_ACCOUNT_BALANCE) {
+      throw new Error(ErrorMessage.BIG_ACCOUNT_BALANCE);
+    }
+
+    return this.balance = newBalance;
   }
 
   public withdraw(amount: number) {
