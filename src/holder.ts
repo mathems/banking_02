@@ -10,7 +10,7 @@ export class Holder {
   ) { }
 
 
-  public static create(fullName: string) {
+  public static create(fullName: string, id: number) {
 
 
     return new Holder(fullName, id)
