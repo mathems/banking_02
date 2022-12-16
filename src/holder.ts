@@ -1,5 +1,8 @@
 import { generateId } from "./utils/generate-id.util";
 
+
+
+const ALL_HOLDERS = new Map<number, Holder>();
 export class Holder {
   private constructor(
     private fullName: string,
@@ -8,7 +11,13 @@ export class Holder {
 
 
   public static create(fullName: string) {
-    return new Holder(fullName, generateId())
+    const id = generateId();
+    const holder = new Holder(fullName, id)
+
+    ALL_HOLDERS.set(id, holder);
+
+    return holder
+
   }
 
   public getFullName() {
