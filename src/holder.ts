@@ -1,7 +1,7 @@
 import { MAX_ACCOUNT_BALANCE, MAX_DEPOSIT_PER_TRANSACTION, MAX_WITHDRAWAL_PER_TRANSACTION, MIN_ACCOUNT_BALANCE, MIN_DEPOSIT_PER_TRANSACTION, MIN_WITHDRAWAL_PER_TRANSACTION } from "./types/constants";
 import { ErrorMessage } from "./types/error-message.enum";
 
-
+type UNDER_MY_RESPONSIBILITY = 'I should to call check* method before this operation';
 
 export class Holder {
   private balance = 0;
@@ -36,7 +36,7 @@ export class Holder {
     return newBalance;
   }
 
-  public deposit(amount: number) {
+  public deposit(amount: number, message: UNDER_MY_RESPONSIBILITY) {
     return this.balance += amount;
   }
 
@@ -59,12 +59,12 @@ export class Holder {
     return newBalance;
   }
 
-  public withdraw(amount: number) {
+  public withdraw(amount: number, message: UNDER_MY_RESPONSIBILITY) {
     return this.balance -= amount;
   }
 
 
-  
+
   public getBalance() {
     return this.balance;
   }
