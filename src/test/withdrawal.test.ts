@@ -15,7 +15,6 @@
 
 
 import { Bank } from "../bank";
-
 describe('Withdrawal', () => {
   beforeAll(() => {
     Bank.create('Biba');
@@ -24,7 +23,6 @@ describe('Withdrawal', () => {
     Bank.deposit(1001, 1500);
     Bank.deposit(1001, 11_500);
   });
-
   it.each([
     { id: 1001, amount: 500, output: 'Minimum withdrawal amount is 1000' },
     { id: 1001, amount: 20_000, output: 'Insufficient balance' },
@@ -34,6 +32,6 @@ describe('Withdrawal', () => {
     // { id: 1001, amount: 10_000, output: 'Only 3 deposits are allowed in a day' },
 
   ])('After making withdraw (-$amount\$) from holder (No."$id") output should be - $output', ({ id, amount, output }) => {
-    expect(Bank.deposit(id, amount)).toBe(output);
+    expect(Bank.withdraw(id, amount)).toBe(output);
   });
 });

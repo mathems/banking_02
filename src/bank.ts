@@ -13,25 +13,25 @@ export class Bank {
   public static [InputCommand.DEPOSIT](id: number, amount: number) {
     const holder = getHolderById(id);
     const checkResult = holder.checkIsDepositPossible(amount);
-
     if (checkResult) {
       return Bank.processErrorMessage(checkResult);
     }
-
     return holder.deposit(amount, 'I should to call check* method before this operation');
   }
-  [InputCommand.WITHDRAW](id: number, amount: number) {
+
+  public static [InputCommand.WITHDRAW](id: number, amount: number) {
     const holder = getHolderById(id);
     const checkResult = holder.checkIsWithdrawPossible(amount);
 
     if (checkResult) {
       return Bank.processErrorMessage(checkResult);
     }
-
     return holder.withdraw(amount, 'I should to call check* method before this operation');
   };
-  [InputCommand.BALANCE] = (id: number) => getHolderById(id).getBalance();
-  [InputCommand.TRANSFER](sourceAccountId: number, targetAccountId: number, amount: number) {
+
+  public static [InputCommand.BALANCE] = (id: number) => getHolderById(id).getBalance();
+
+  public static [InputCommand.TRANSFER](sourceAccountId: number, targetAccountId: number, amount: number) {
     const sender = getHolderById(sourceAccountId);
     const receiver = getHolderById(targetAccountId);
     const senderCheckResult = sender.checkIsWithdrawPossible(amount);
@@ -47,10 +47,8 @@ export class Bank {
   public static setThrowOnError(allowThrowing: boolean) {
     Bank.throwError = allowThrowing;
   }
-
   private static processErrorMessage(errorMessage: ErrorMessage) {
     if (Bank.throwError) throw new Error(errorMessage);
-
     return errorMessage;
   }
 }
