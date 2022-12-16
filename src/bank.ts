@@ -53,5 +53,17 @@ export class Bank {
     receiver.deposit(amount, 'I should to call check* method before this operation');
 
     return 'successful';
-  };
+  }
+
+  private static throwError = false;
+
+  public static setThrowOnError(allowThrowing: boolean) {
+    Bank.throwError = allowThrowing;
+  }
+
+  private processErrorMessage(errorMessage: ErrorMessage) {
+    if (Bank.throwError) throw new Error(errorMessage);
+
+    return errorMessage;
+  }
 }
