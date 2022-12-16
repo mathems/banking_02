@@ -15,7 +15,6 @@ Output: Only 3 deposits are allowed in a day
 */
 import { getHolderById } from "../all-holders";
 import { Bank } from "../bank";
-
 describe('Deposit', () => {
   beforeAll(() => {
     Bank.create('Biba');
@@ -24,6 +23,7 @@ describe('Deposit', () => {
 
   it.each([
     { id: 1001, amount: 500, output: 500 },
+    { id: 1001, amount: 1_000, output: 1_500 },
   ])('After making deposit ($amount\$) to holder (No."$id") current balance should be $output\$.', ({ id, amount, output }) => {
     expect(Bank.deposit(id, amount)).toBe(output);
   });
