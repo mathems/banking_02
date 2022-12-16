@@ -4,6 +4,7 @@ import { generateId } from "./utils/generate-id.util";
 
 const ALL_HOLDERS = new Map<number, Holder>();
 export class Holder {
+  private balance = 0;
   private constructor(
     private fullName: string,
     private id: number
