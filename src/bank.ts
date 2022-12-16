@@ -14,6 +14,8 @@ const COMMAND_EXECUTOR = {
     return id;
   },
   [InputCommand.DEPOSIT]: (id: number, amount: number) => getHolderById(id).deposit(amount),
+  [InputCommand.WITHDRAW]: (id: number, amount: number) => getHolderById(id).withdraw(amount),
+  [InputCommand.BALANCE]: (id: number) => getHolderById(id).getBalance(),
 }
 
 
