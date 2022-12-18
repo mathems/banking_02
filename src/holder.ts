@@ -9,6 +9,7 @@ export class Holder {
     this.todayDepositsCount = 0;
     this.todayWithdrawsCount = 0;
   }
+  
   private constructor(
     private fullName: string,
     private id: number,
