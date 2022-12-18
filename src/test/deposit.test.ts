@@ -16,7 +16,7 @@
 
 import { Bank } from "../bank";
 
-describe.only('Deposit', () => {
+describe('Deposit', () => {
   beforeAll(() => {
     Bank.create('Biba');
     Bank.create('Boba');
